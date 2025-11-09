@@ -1,0 +1,23 @@
+name: Matrix Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [14, 16, 18]
+    steps:
+      - name: matrix-14d9bac
+        run: echo "Building for version ${{ matrix.version }}"
+      - name: Generate build artifact
+        run: echo "Build output for version ${{ matrix.version }}" > output.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-14d9bac-v${{ matrix.version }}
+          path: output.txt
